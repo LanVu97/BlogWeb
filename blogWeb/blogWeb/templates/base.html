@@ -42,7 +42,7 @@
                     {% if user.is_authenticated %}
                     <span class="text-light">Welcome, {{user.username}}</span>
                     
-                    <a href="#" class="btn btn-light my-2 my-sm-0" id="s" >Log out</a>
+                    <a href="{% url 'logout' %}" class="btn btn-light my-2 my-sm-0" id="s" >Log out</a>
                     <!-- <li class="nav-item">
                       <a class="nav-link" href="#">Welcome, {{user.username}}</a>
                     </li> -->

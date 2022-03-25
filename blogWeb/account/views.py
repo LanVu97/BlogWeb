@@ -37,3 +37,7 @@ def login_request(request):
 
 	return render (request, 'account/login.html')
 
+def logout_request(request):
+	logout(request)
+	messages.success(request, "You have successfully logged out.") 
+	return render(request,'index.html')
