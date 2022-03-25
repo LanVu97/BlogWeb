@@ -19,5 +19,5 @@ import blogWeb.views  as views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home' ),
-  
+    path('account/', include('account.urls')),
 ]
