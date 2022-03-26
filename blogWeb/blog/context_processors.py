@@ -8,10 +8,9 @@ def get_categories(request):
     """
     cateCount = {}
     categories = Category.objects.all()
+    
     for cate in categories:
         num = Post.objects.filter(category=cate).count
-        cateCount[cate.name] = num
-
-    for i in cateCount:
-        print(i)
+        cateCount[cate] = num        
+   
     return {'cateCount': cateCount}

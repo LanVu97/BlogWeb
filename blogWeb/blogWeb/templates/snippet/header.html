@@ -15,7 +15,7 @@
             <div class="collapse navbar-collapse" id="navbarMenu">
               <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                  <a class="nav-link active" href="index.html">Home</a>
+                  <a class="nav-link active" href="{% url 'home' %}">Home</a>
                 </li>
 
 
@@ -23,7 +23,7 @@
                   <a class="nav-link dropdown-toggle" href="category.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                   <div class="dropdown-menu" aria-labelledby="dropdown05">
                     {% for cate in cateCount %}
-                    <a class="dropdown-item" href="category.html">{{cate| capfirst}}</a>
+                    <a class="dropdown-item" href="{% url 'category' cate.slug %}">{{cate| capfirst}}</a>
                     {% endfor %}
                   </div>
 

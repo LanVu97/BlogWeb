@@ -1,0 +1,55 @@
+<div class="col-md-12 col-lg-4 sidebar">
+    <div class="sidebar-box search-form-wrap">
+      <form action="#" class="search-form">
+        <div class="form-group">
+          <span class="icon fa fa-search"></span>
+          <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
+        </div>
+      </form>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="sidebar-box">
+      <div class="bio text-center"> 
+        <div class="bio-body">
+          <h2>{{user.username}}</h2>
+          <p><a href="#" class="btn btn-primary btn-sm rounded">Create a new post</a></p>
+
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="sidebar-box">
+      <h3 class="heading">Popular Posts</h3>
+      <div class="post-entry-sidebar">
+        <ul>
+          
+          <li>
+            <a href="">
+              <img src="images/img_2.jpg" alt="Image placeholder" class="mr-4">
+              <div class="text">
+                <h4>How to Find the Video Games of Your Youth</h4>
+                <div class="post-meta">
+                  <span class="mr-2">March 15, 2018 </span>
+                </div>
+              </div>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <!-- END sidebar-box -->
+
+    <div class="sidebar-box">
+      <h3 class="heading">Categories</h3>
+      <ul class="categories">
+        {% for k, v in cateCount.items %}
+          <li><a href="{% url 'category' k.slug %}">{{k| capfirst}} <span>({{v}})</span></a></li>
+        {% endfor %}
+
+      </ul>
+    </div>
+    
+
+
+</div>
