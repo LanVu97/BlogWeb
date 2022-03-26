@@ -15,7 +15,7 @@ def register_request(request):
 			user = form.save()
 			login(request, user)			
 			messages.success(request, "Registration successful." )
-			return render(request,'index.html')
+			return redirect('home')
 	else:
 		form = UserForm()
 	return render (request, 'account/register.html', {'form': form})
@@ -29,7 +29,7 @@ def login_request(request):
 		if user is not None:
 			login(request, user)
 			messages.success(request, f' welcome, {user.username} !!!')
-			return render(request,'index.html')
+			return redirect('home')
 			
 		else:
 			messages.warning(request, f'account done not exit plz sign in')
@@ -40,4 +40,4 @@ def login_request(request):
 def logout_request(request):
 	logout(request)
 	messages.success(request, "You have successfully logged out.") 
-	return render(request,'index.html')
+	return redirect('home')
