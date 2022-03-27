@@ -35,6 +35,16 @@ def create_blog(request):
             return redirect('home')
     else:
         form = PostForm()
-        
+
     context['form']= form
     return render (request, 'blog/create.html',context)
+
+def delete_blog(request, blog_slug):
+    obj = get_object_or_404(Post, slug = blog_slug)
+ 
+    if request.method =="POST":
+        # delete object
+        obj.delete()
+        return redirect('home')   
+   
+    
