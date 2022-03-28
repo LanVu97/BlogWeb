@@ -31,13 +31,16 @@
                     <p>Categories: <a href="#">{{post.category}}</a> </p>
                 </div>
                 {% if post.author == request.user %}
-                <div>                   
-
+                <div>
+                    <a href="{% url 'update_blog' post.slug %}" class="btn btn-info btn-sm rounded">Update the post</a>
+                    
                     <form action="{% url 'delete_blog' post.slug %}"  method="post" class="confirmation" >
-                        {% csrf_token %}
-                        <input type="submit" value="Delete the post" class="btn btn-danger btn-sm rounded">
+                            {% csrf_token %}
+                            <input type="submit" value="Delete the post" class="btn btn-danger btn-sm rounded">
                     </form>
+                    
                 </div>
+
                 {% endif %}
                 <!-- comments -->
                 <div class="pt-5">

@@ -1,0 +1,65 @@
+{% extends "base.html" %} 
+{% load static %}
+ {% block content %}
+ <div class="container">
+    <h2 class="my-4">Add a new post</h2>
+
+
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+       {% csrf_token %}
+       {% if form.errors %}
+       {% for field in form %}
+           {% for error in field.errors %} 
+              <div class="alert alert-danger">
+                   <strong>{{ error|escape }}</strong>
+              </div>
+           {% endfor %}
+       {% endfor %}
+    {% endif %}
+       <div class="mb-3 row">
+           <label for="staticEmail" class="col-sm-2 col-form-label">Title</label>
+           <div class="col-sm-10">
+             {{form.title}}
+           </div>
+         </div>
+       <div class="mb-3 row">
+           <label for="staticEmail" class="col-sm-2 col-form-label">Category</label>
+           <div class="col-sm-10">
+             {{form.category}}
+           </div>
+         </div>
+         <div class="mb-3 row">
+           <label for="inputPassword" class="col-sm-2 col-form-label">Image</label>
+           <div class="col-sm-10">
+            <img class="img-fluid image" src="{{form.initial.image.url}}" id="id_image_display" width="300px" height="300px" >
+              <br><br>
+              <input type="file" name="image" id="id_image_file" accept="image/*" onchange="readURL(this)">
+           </div>
+         </div>
+
+   
+         <div class="mb-3 row">
+           <label for="inputPassword" class="col-sm-2 col-form-label">body</label>
+           <div class="col-sm-10">
+               {{form.body}}
+           </div>
+         </div>
+       <!-- {{ form.as_p }} -->
+       <button type="submit" class="btn btn-primary mb-3">Update</button>
+   </form>
+ </div>
+ <script type="text/javascript">
+	document.getElementById('id_image_group').onclick = function(event){
+    	document.getElementById('id_image_file').click();
+    };
+
+	function readURL(input){
+		var reader = new FileReader();
+		reader.onload = function (e) {
+            $('#id_image_display')
+                .attr('src', e.target.result)
+        };
+		reader.readAsDataURL(input.files[0]);
+	}
+</script>
+ {% endblock %}

@@ -1,4 +1,5 @@
-from asyncio.proactor_events import _ProactorDuplexPipeTransport
+
+from operator import methodcaller
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import  render, redirect
 
@@ -47,4 +48,21 @@ def delete_blog(request, blog_slug):
         obj.delete()
         return redirect('home')   
    
-    
+
+def update_blog(request, blog_slug):
+    context ={}
+    obj = get_object_or_404(Post, slug = blog_slug)
+    if request.method == "POST":
+        
+        form = PostForm(request.POST,  request.FILES, instance = obj)
+ 
+    # save the data from the form and
+    # redirect to detail_view
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+         form = PostForm(instance = obj)
+    # add form dictionary to context
+    context["form"] = form
+    return render(request, 'blog/update_blog.html', context)
