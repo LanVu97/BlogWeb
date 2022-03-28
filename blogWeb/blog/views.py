@@ -1,5 +1,5 @@
 
-from operator import methodcaller
+
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import  render, redirect
 

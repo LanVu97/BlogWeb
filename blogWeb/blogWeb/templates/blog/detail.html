@@ -18,11 +18,11 @@
                 <a class="category mb-5" href="#">{{post.category}}</a>
 
                 <div class="post-content-body">
-              
+
                     {{ post.body|safe }}
 
                     {% autoescape off %}
-                        {{ post.body}}
+                    {{ post.body}}
                     {% endautoescape %}
                 </div>
 
@@ -33,12 +33,12 @@
                 {% if post.author == request.user %}
                 <div>
                     <a href="{% url 'update_blog' post.slug %}" class="btn btn-info btn-sm rounded">Update the post</a>
-                    
-                    <form action="{% url 'delete_blog' post.slug %}"  method="post" class="confirmation" >
-                            {% csrf_token %}
-                            <input type="submit" value="Delete the post" class="btn btn-danger btn-sm rounded">
+
+                    <form action="{% url 'delete_blog' post.slug %}" method="post" class="confirmation">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete the post" class="btn btn-danger btn-sm rounded">
                     </form>
-                    
+
                 </div>
 
                 {% endif %}
@@ -46,19 +46,7 @@
                 <div class="pt-5">
                     <h3 class="mb-5">6 Comments</h3>
                     <ul class="comment-list">
-                        <li class="comment">
-                            <div class="vcard">
-                                <img src="images/person_1.jpg" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                                <h3>Jean Doe</h3>
-                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                                    necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente
-                                    iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" class="reply rounded">Reply</a></p>
-                            </div>
-                        </li>
+
 
                         <li class="comment">
                             <div class="vcard">
@@ -70,7 +58,28 @@
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
                                     necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente
                                     iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" class="reply rounded">Reply</a></p>
+                                <p><a href="#" class="reply rounded" id="buttonReply">Reply</a></p>
+                                <!--  reply form -->
+                                <form action="#" class="p-5 bg-light" id="replyForm" style="display:none;">
+                                    <div class="form-group">
+                                        <label for="name">Name *</label>
+                                        <input type="text" class="form-control" id="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email *</label>
+                                        <input type="email" class="form-control" id="email">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="message">Message</label>
+                                        <textarea name="" id="message" cols="30" rows="5"
+                                            class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Post Comment" class="btn btn-primary">
+                                    </div>
+
+                                </form>
                             </div>
 
                             <ul class="children">
@@ -85,60 +94,12 @@
                                             laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe
                                             enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?
                                         </p>
-                                        <p><a href="#" class="reply rounded">Reply</a></p>
-                                    </div>
 
-
-                                    <ul class="children">
-                                        <li class="comment">
-                                            <div class="vcard">
-                                                <img src="images/person_1.jpg" alt="Image placeholder">
-                                            </div>
-                                            <div class="comment-body">
-                                                <h3>Jean Doe</h3>
-                                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur
-                                                    quidem laborum necessitatibus, ipsam impedit vitae autem, eum
-                                                    officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum
-                                                    impedit necessitatibus, nihil?</p>
-                                                <p><a href="#" class="reply rounded">Reply</a></p>
-                                            </div>
-
-                                            <ul class="children">
-                                                <li class="comment">
-                                                    <div class="vcard">
-                                                        <img src="images/person_1.jpg" alt="Image placeholder">
-                                                    </div>
-                                                    <div class="comment-body">
-                                                        <h3>Jean Doe</h3>
-                                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                            Pariatur quidem laborum necessitatibus, ipsam impedit vitae
-                                                            autem, eum officia, fugiat saepe enim sapiente iste iure!
-                                                            Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                        <p><a href="#" class="reply rounded">Reply</a></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                         </li>
 
-                        <li class="comment">
-                            <div class="vcard">
-                                <img src="images/person_1.jpg" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                                <h3>Jean Doe</h3>
-                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                                    necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente
-                                    iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" class="reply rounded">Reply</a></p>
-                            </div>
-                        </li>
+
                     </ul>
                     <!-- END comment-list -->
 
@@ -153,14 +114,10 @@
                                 <label for="email">Email *</label>
                                 <input type="email" class="form-control" id="email">
                             </div>
-                            <div class="form-group">
-                                <label for="website">Website</label>
-                                <input type="url" class="form-control" id="website">
-                            </div>
 
                             <div class="form-group">
                                 <label for="message">Message</label>
-                                <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+                                <textarea name="" id="message" cols="30" rows="5" class="form-control"></textarea>
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Post Comment" class="btn btn-primary">
@@ -178,11 +135,17 @@
         </div>
 </section>
 <script type="text/javascript">
-    $(".confirmation").submit(function(){
-        
+    $(".confirmation").submit(function () {
+
         var res = confirm('Are you sure you wish to delete?');
         console.log(res);
         return res;
+    });
+
+    $("#buttonReply").click(function (e) {
+        $("#replyForm").show();
+
+        e.preventDefault();
     });
 </script>
 
