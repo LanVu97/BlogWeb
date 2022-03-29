@@ -1,5 +1,6 @@
 from email.mime import image
 from django.db import models
+from django.urls import reverse
 
 from account.models import User
 # Import slugify to generate slugs from strings
@@ -35,6 +36,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+        
+    def get_absolute_url(self):
+        return reverse('blog_detail', kwargs={'blog_slug': self.slug, 'category_slug':self.category.slug })
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
@@ -49,4 +53,4 @@ class Comment(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return 'Comment by {}'.format(self.name)
+        return 'Comment by {}'.format(self.author.username)

@@ -44,87 +44,85 @@
                 {% endif %}
                 <!-- comments -->
                 <div class="pt-5">
-                    <h3 class="mb-5">6 Comments</h3>
+                    <h3 class="mb-5">{{comments.count}} Comments</h3>
                     <ul class="comment-list">
-
+                        <!-- Comment with nested comments -->
+                        {% for comment in comments %}
 
                         <li class="comment">
-                            <div class="vcard">
-                                <img src="images/person_1.jpg" alt="Image placeholder">
-                            </div>
+
                             <div class="comment-body">
-                                <h3>Jean Doe</h3>
-                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum
-                                    necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente
-                                    iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" class="reply rounded" id="buttonReply">Reply</a></p>
-                                <!--  reply form -->
-                                <form action="#" class="p-5 bg-light" id="replyForm" style="display:none;">
-                                    <div class="form-group">
-                                        <label for="name">Name *</label>
-                                        <input type="text" class="form-control" id="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email *</label>
-                                        <input type="email" class="form-control" id="email">
-                                    </div>
+                                <h3>{{comment.author.username| capfirst}}</h3>
+                                <div class="meta">{{comment.updated}}</div>
+                                <p>{{comment.body}}</p>
+                                <div>
+                                    <a class="reply rounded buttonReply">Reply</a>
+                                    <!--  reply form -->
+                                    <div class="replyForm">
+                                        {% if user.is_authenticated %}
+                                        <form action="{{post.get_absolute_url}}" class="p-5 bg-light" method="post">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="message">Message</label>
+                                                {{comment_form.body}}
+                                            </div>
+                                            <input type="hidden" name="parent_id" value="{{comment.id}}">
+                                            <div class="form-group">
+                                                <input type="submit" value="Post Comment" class="btn btn-primary">
+                                            </div>
 
-                                    <div class="form-group">
-                                        <label for="message">Message</label>
-                                        <textarea name="" id="message" cols="30" rows="5"
-                                            class="form-control"></textarea>
+                                        </form>
+                                        {% else %}
+                                        <a class="btn btn-outline-info"
+                                            href="{% url 'login' %}?next={{request.path}}">Log
+                                            in to add a comment!</a><br>
+                                        {% endif %}
                                     </div>
-                                    <div class="form-group">
-                                        <input type="submit" value="Post Comment" class="btn btn-primary">
-                                    </div>
-
-                                </form>
+                                </div>
                             </div>
+
 
                             <ul class="children">
+                                {% for replay in comment.replies.all %}
                                 <li class="comment">
-                                    <div class="vcard">
-                                        <img src="images/person_1.jpg" alt="Image placeholder">
-                                    </div>
+
                                     <div class="comment-body">
-                                        <h3>Jean Doe</h3>
-                                        <div class="meta">January 9, 2018 at 2:21pm</div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem
-                                            laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe
-                                            enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?
-                                        </p>
+                                        <h3>{{replay.author.username| capfirst}}</h3>
+                                        <div class="meta">{{replay.updated}}</div>
+                                        <p>{{replay.body}}</p>
 
                                 </li>
+                                {% endfor %}
                             </ul>
                         </li>
 
+                        {% empty %}
 
+                        <strong class="text-secondary">No comments yet...</strong>
+                        {% endfor %}
                     </ul>
                     <!-- END comment-list -->
 
                     <div class="comment-form-wrap pt-5">
                         <h3 class="mb-5">Leave a comment</h3>
-                        <form action="#" class="p-5 bg-light">
-                            <div class="form-group">
-                                <label for="name">Name *</label>
-                                <input type="text" class="form-control" id="name">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" class="form-control" id="email">
-                            </div>
-
+                        {% if user.is_authenticated %}
+                        <form action="{{post.get_absolute_url}}" class="p-5 bg-light" method="post">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <label for="message">Message</label>
-                                <textarea name="" id="message" cols="30" rows="5" class="form-control"></textarea>
+                                {{comment_form.body}}
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Post Comment" class="btn btn-primary">
                             </div>
 
                         </form>
+                        {% else %}
+                        <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to add a
+                            comment!</a><br>
+                        {% endif %}
                     </div>
+
                 </div>
 
             </div>
@@ -132,7 +130,7 @@
             <!-- END main-content -->
 
             {% include "snippet/sidebar.html" %}
-        </div>
+
 </section>
 <script type="text/javascript">
     $(".confirmation").submit(function () {
@@ -142,11 +140,19 @@
         return res;
     });
 
-    $("#buttonReply").click(function (e) {
-        $("#replyForm").show();
+    $(".replyForm").hide();
 
-        e.preventDefault();
+    $(".buttonReply").click(function () {
+        if ($(this).next(".replyForm").is(":visible")) {
+            $(this).next(".replyForm").hide();
+
+        } else {
+            $(this).next(".replyForm").show();
+
+        }
     });
+
+
 </script>
 
 <!-- END section -->

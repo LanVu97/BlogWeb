@@ -22,7 +22,7 @@
               <div class="row">
                 {% for post in posts %}
                 <div class="col-md-6">
-                  <a href="{% url 'blog_detail' post.category.slug post.slug %}" class="blog-entry element-animate" data-animate-effect="fadeIn">
+                  <a href="{{post.get_absolute_url}}" class="blog-entry element-animate" data-animate-effect="fadeIn">
                     <img src="{{post.image.url}}" alt="Image placeholder">
                     <div class="blog-content-body">
                       <div class="post-meta">
