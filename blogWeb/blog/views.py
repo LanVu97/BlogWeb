@@ -106,3 +106,5 @@ def update_blog(request, blog_slug):
     context["form"] = form
     return render(request, 'blog/update_blog.html', context)
 
+
+
