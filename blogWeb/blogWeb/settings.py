@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 #context processor written by us.
                 'blog.context_processors.get_categories',
+                'blog.context_processors.getPopularPosts',
             ],
         },
     },
