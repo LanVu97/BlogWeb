@@ -24,7 +24,7 @@
         <ul>
           {% for post in popularPosts %}
           <li>
-            <a href="">
+            <a href="{{post.get_absolute_url}}">
               <img src="{{post.image.url}}" alt="Image placeholder" class="mr-4">
               <div class="text">
                 <h4>{{post.title}}</h4>
