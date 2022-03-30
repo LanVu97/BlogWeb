@@ -20,4 +20,4 @@ def search(request):
     # If not searched, return default posts
         posts = Post.objects.all().order_by("-date_created")
     content['posts'] = posts
-    return render(request, 'index.html', content)
+    return render(request, 'blog/searchResult.html', content)
