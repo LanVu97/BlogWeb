@@ -27,7 +27,7 @@
                     <span class="author mr-2">Author: {{post.author.username| capfirst}}</span>&bullet;
                     <span class="mr-2">{{post.create_date}}</span> &bullet;
                     <span class="mr-2">{{cate_name}}</span> &bullet;
-                    <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                    <span class="ml-2"><span class="fa fa-comments"></span> {{post.comments.count}}</span>
                   </div>
                   <h2>{{post.title}}</h2>
                 </span>
