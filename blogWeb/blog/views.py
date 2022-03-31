@@ -1,4 +1,4 @@
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -59,7 +59,20 @@ def blog_detail(request, category_slug, blog_slug):
 def category(request, category_slug):
     content ={}
     cate_name = Category.objects.get(slug= category_slug).name
-    posts = Post.objects.filter(category__slug=category_slug)
+    post_list = Post.objects.filter(category__slug=category_slug).order_by("-create_date")
+
+    # getting the desired page number from url
+    page = request.GET.get('page')
+    # creating a paginator object
+    paginator = Paginator(post_list, 6) # 6 posts per page
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        # if page is empty then return last page
+        posts = paginator.page(paginator.num_pages)
     content['category_posts'] = posts
     content['cate_name'] = cate_name
     return render (request, 'blog/category.html',content)
