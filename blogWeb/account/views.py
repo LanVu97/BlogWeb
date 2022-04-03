@@ -5,7 +5,7 @@ from django.shortcuts import  render, redirect
 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 from account.forms import UserForm
 
 def register_request(request):
@@ -37,6 +37,7 @@ def login_request(request):
 
 	return render (request, 'account/login.html')
 
+@login_required(login_url='login')
 def logout_request(request):
 	logout(request)
 	messages.success(request, "You have successfully logged out.") 

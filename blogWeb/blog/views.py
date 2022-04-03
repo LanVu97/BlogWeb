@@ -76,7 +76,7 @@ def category(request, category_slug):
     content['category_posts'] = posts
     content['cate_name'] = cate_name
     return render (request, 'blog/category.html',content)
-
+@login_required(login_url='login')
 def create_blog(request):
     context = {}
     if request.method == 'POST':
@@ -91,7 +91,7 @@ def create_blog(request):
 
     context['form']= form
     return render (request, 'blog/create.html',context)
-
+@login_required(login_url='login')
 def delete_blog(request, blog_slug):
     obj = get_object_or_404(Post, slug = blog_slug)
  
@@ -100,7 +100,7 @@ def delete_blog(request, blog_slug):
         obj.delete()
         return redirect('home')   
    
-
+@login_required(login_url='login')
 def update_blog(request, blog_slug):
     context ={}
     obj = get_object_or_404(Post, slug = blog_slug)
@@ -119,7 +119,7 @@ def update_blog(request, blog_slug):
     context["form"] = form
     return render(request, 'blog/update_blog.html', context)
 
-@login_required
+@login_required(login_url='login')
 def parent_comment_list(request, post_id):
     print(post_id)
     comment = Comment.objects.filter(post__id=post_id, parent__isnull=True)
