@@ -14,6 +14,7 @@ class PostForm(forms.ModelForm):
         self.fields['image'].widget.attrs['class'] = ''
 
 class CommentForm(forms.ModelForm):
+    
     class Meta:
         model = Comment
         fields = ('body',)
@@ -21,3 +22,17 @@ class CommentForm(forms.ModelForm):
         super(CommentForm, self).__init__(*args, **kwargs)
         self.fields['body'].widget.attrs['class'] = 'form-control'
         self.fields['body'].widget.attrs['rows'] = "5"
+
+class CommentAdminForm(forms.ModelForm): 
+    
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+    # provinsi = forms.ModelChoiceField(
+    #         queryset = Provinsi.objects.all(),
+    #         # initial= 0,
+    #         widget = forms.Select(attrs = {'id': 'id_provinsi'})
+            
+    #         )
+    parent = forms.ChoiceField(choices=[('','---------')])

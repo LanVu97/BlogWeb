@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import  render, redirect
 
@@ -119,5 +119,9 @@ def update_blog(request, blog_slug):
     context["form"] = form
     return render(request, 'blog/update_blog.html', context)
 
-
+@login_required
+def parent_comment_list(request, post_id):
+    print(post_id)
+    comment = Comment.objects.filter(post__id=post_id, parent__isnull=True)
+    return JsonResponse({'data': [{'id': k.id, 'author': k.author.username} for k in comment]})
 
