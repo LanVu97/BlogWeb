@@ -28,11 +28,3 @@ class CommentAdminForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = '__all__'
-
-    # provinsi = forms.ModelChoiceField(
-    #         queryset = Provinsi.objects.all(),
-    #         # initial= 0,
-    #         widget = forms.Select(attrs = {'id': 'id_provinsi'})
-            
-    #         )
-    parent = forms.ChoiceField(choices=[('','---------')])
