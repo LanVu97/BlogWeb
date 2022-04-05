@@ -112,7 +112,7 @@ def update_blog(request, blog_slug):
     # redirect to detail_view
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect(obj.get_absolute_url())
     else:
          form = PostForm(instance = obj)
     # add form dictionary to context

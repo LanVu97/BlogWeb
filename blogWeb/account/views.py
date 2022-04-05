@@ -22,14 +22,21 @@ def register_request(request):
 
 
 def login_request(request):
+	
 	if request.method == "POST":
 		email = request.POST['email']
 		password = request.POST['password']
 		user = authenticate( email=email, password = password)
+		
 		if user is not None:
 			login(request, user)
-			messages.success(request, f' welcome, {user.username} !!!')
-			return redirect('home')
+			if request.GET.get('next') :				
+				return redirect(request.GET.get('next'))
+			else:
+				messages.success(request, f' welcome, {user.username} !!!')
+				return redirect('home')
+				
+			
 			
 		else:
 			messages.warning(request, f'account done not exit plz sign in')
