@@ -56,3 +56,6 @@ def search(request):
     content['posts'] = posts
 
     return render(request, 'blog/searchResult.html', content)
+
+def contact(request):
+     return render(request, 'contact.html')

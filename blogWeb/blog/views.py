@@ -91,6 +91,7 @@ def create_blog(request):
 
     context['form']= form
     return render (request, 'blog/create.html',context)
+    
 @login_required(login_url='login')
 def delete_blog(request, blog_slug):
     obj = get_object_or_404(Post, slug = blog_slug)

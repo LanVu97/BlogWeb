@@ -53,18 +53,26 @@
                     <span class="text-light">Welcome, {{user.username}}</span>
                     
                     <a href="{% url 'logout' %}" class="btn btn-light my-2 my-sm-0" id="s" >Log out</a>
-                    <!-- <li class="nav-item">
+                    
                       <a class="nav-link" href="#">Welcome, {{user.username}}</a>
                     </li> -->
                     {% else %}
                     
-                      <a href="{% url 'login' %}" class="btn btn-light my-2 my-sm-0" id="s" >Log in</a>
+                       <a href="{% url 'login' %}" class="btn btn-light my-2 my-sm-0" id="s" >Log in</a>
+                     
+                      
                       <a href="{% url 'register' %}" class="btn btn-light my-2 my-sm-0" id="s" >Register</a>
+                   
                       {% endif %}
                   </div>
                 </div>
               </div>
             </div>
+
+
+
+
+            
         {% block header %}
             {% include "snippet/header.html" %}
         {% endblock %}
